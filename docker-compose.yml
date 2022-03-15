@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  app:
+    image: lm10
+    container_name: lm10
+    build: .
+    stdin_open: true
+    volumes:
+      - .:/app
+      - $HOME/.aws:/root/.aws:ro
+    entrypoint: /app/docker-entrypoint.sh
