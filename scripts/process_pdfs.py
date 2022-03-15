@@ -20,7 +20,7 @@ def main():
     # pdf2image will produce one image for every page of the PDF
     page_paths = []
     print('\nConverting PDF to images...')
-    pages = convert_from_path(pdf_path, fmt='png', output_folder='raw/images', output_file=pdf_name)
+    pages = convert_from_path(pdf_path, fmt='png', output_folder='raw', output_file=pdf_name)
     for page in pages:
         page_paths.append(page.filename)
 
