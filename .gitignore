@@ -135,4 +135,4 @@ dmypy.json
 raw/*.pdf
 raw/*.png
 raw/*/*.png
-final/*.json
+images/*
