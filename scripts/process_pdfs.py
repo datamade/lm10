@@ -40,10 +40,10 @@ def main():
         form_key_values = textract.get_kv_relationship(key_map, value_map, block_map)
 
         print('Writing output...')
-        with open(f'final/{pdf_name}_raw.json', 'w') as output:
+        with open(f'textract_responses/{pdf_name}.json', 'w') as output:
             output.write(json.dumps(all_blocks))
 
-        with open(f'final/{pdf_name}_processed.json', 'w') as output:
+        with open(f'final/{pdf_name}.json', 'w') as output:
             output.write(json.dumps(form_key_values))
 
     print('Done!\n')
