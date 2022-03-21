@@ -29,22 +29,23 @@ def main():
 
         # combine Textract's output for each of the images associated
         # with a PDF file
-        all_blocks = []
+        page_blocks = []
+        page_key_values = []
         print('Fetching Textract blocks...')
-        for page in pages:
+        for i, page in enumerate(pages):
             blocks = textract.detect_file_text(document_file_name=page.filename)['Blocks']
-            all_blocks.extend(blocks)
+            page_blocks.append(blocks)
 
-        # get the key value pairs for the form data in the PDF
-        key_map, value_map, block_map = textract.get_kv_map(all_blocks)
-        form_key_values = textract.get_kv_relationship(key_map, value_map, block_map)
+            # get the key value pairs for the form data in the page
+            key_map, value_map, block_map = textract.get_kv_map(page_blocks[i])
+            page_key_values += [textract.get_kv_relationship(key_map, value_map, block_map)]
 
         print('Writing output...')
         with open(f'textract_responses/{pdf_name}.json', 'w') as raw_output:
-            json.dump(all_blocks, raw_output, indent=4)
+            json.dump(page_blocks, raw_output, indent=4)
 
         with open(f'final/{pdf_name}.json', 'w') as processed_output:
-            json.dump(form_key_values, processed_output, indent=4)
+            json.dump(page_key_values, processed_output, indent=4)
 
     print('Done!\n')
 
