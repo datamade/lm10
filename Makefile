@@ -1,4 +1,4 @@
-all: final/LM-10_E5044_12_31_2009_425049.json
+all: extract_json
 
 clean:
 	rm -f final/*
