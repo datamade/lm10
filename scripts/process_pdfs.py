@@ -37,8 +37,8 @@ def main():
             page_blocks.append(blocks)
 
             # get the key value pairs for the form data in the page
-            key_map, value_map, block_map = textract.get_kv_map(page_blocks[i])
-            page_key_values += [textract.get_kv_relationship(key_map, value_map, block_map)]
+            key_map, value_map, block_map = textract.get_kv_map(blocks)
+            page_key_values.append(textract.get_kv_relationship(key_map, value_map, block_map))
 
         print('Writing output...')
         with open(f'textract_responses/{pdf_name}.json', 'w') as raw_output:
