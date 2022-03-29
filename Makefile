@@ -8,7 +8,7 @@ clean:
 .INTERMEDIATE: response_files.txt
 
 sample.txt: 
-	ls -d raw/* | shuf | head -1 > $@
+	ls -d raw/* | shuf | head -100 > $@
 
 extract_json: sample.txt
 	python scripts/process_pdfs.py $^
