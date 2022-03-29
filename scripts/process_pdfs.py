@@ -5,6 +5,7 @@ from tqdm import tqdm
 from pathlib import PurePath
 from pdf2image import convert_from_path
 from textract import Textract
+from build_db import build_db_row_from_block
 
 
 def main():
@@ -39,6 +40,9 @@ def main():
             # get the key value pairs for the form data in the page
             key_map, value_map, block_map = textract.get_kv_map(blocks)
             page_key_values.append(textract.get_kv_relationship(key_map, value_map, block_map))
+
+            for block in blocks:
+                build_db_row_from_block(block)
 
         print('Writing output...')
         with open(f'textract_responses/{pdf_name}.json', 'w') as raw_output:

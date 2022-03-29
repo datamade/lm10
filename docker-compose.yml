@@ -6,7 +6,35 @@ services:
     container_name: lm10
     build: .
     stdin_open: true
+    depends_on:
+      postgis:
+        condition: service_healthy
     volumes:
       - .:/app
       - $HOME/.aws:/root/.aws:ro
     entrypoint: /app/docker-entrypoint.sh
+
+  postgis:
+    image: postgis/postgis
+    container_name: lm10-db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      - POSTGRES_DB=lm10
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      # By default, Postgres instantiates an anonymous volume. Use a named
+      # one, so your data persists beyond the life of the container. See this
+      # post for a discussion of the pitfalls of Postgres and anonymous
+      # volumes: https://linuxhint.com/run_postgresql_docker_compose/
+      - lm10-db-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+volumes:
+  # Declare your named volume for Postgres.
+  lm10-db-data:

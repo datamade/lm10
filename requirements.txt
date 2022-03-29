@@ -3,10 +3,10 @@ botocore==1.24.17
 greenlet==1.1.2
 jmespath==0.10.0
 msgpack==1.0.3
-neovim==0.3.1
 packaging==21.3
 pdf2image==1.16.0
 Pillow==9.0.1
+psycopg2==2.9.3
 pynvim==0.4.3
 pyparsing==3.0.7
 pytesseract==0.3.9

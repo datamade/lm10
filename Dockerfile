@@ -14,7 +14,8 @@ LABEL maintainer "DataMade <info@datamade.us>"
 # image small by combining related commands into one RUN statement, e.g.,
 #
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends build-essential \
+    apt-get install -y --no-install-recommends \ 
+    build-essential postgresql postgresql-contrib gdal-bin \
     git make curl python3-pip poppler-utils
 
 # Inside the container, create an app directory and switch into it
