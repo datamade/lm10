@@ -3,7 +3,8 @@ import json
 
 def build_db_row_from_block(block_json_path):
     """
-    Given a JSON file of Textract blocks, add a row to the database.
+    Given a JSON file of Textract blocks, returns a corresponding GeoJSON
+    feature object.
     """
 
     with open(block_json_path) as f:
