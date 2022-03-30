@@ -14,5 +14,5 @@ COPY (
     AND b.wkb_geometry &< a.wkb_geometry
     AND b.wkb_geometry &> a.wkb_geometry
     AND b.blocktype = 'LINE'
-    AND b.text NOT LIKE '%or expenditure%'
+    AND b.text NOT LIKE '%expenditure%'
 ) TO stdout WITH CSV HEADER;
