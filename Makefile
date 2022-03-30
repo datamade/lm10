@@ -25,3 +25,6 @@ response_files.txt:
 
 extracted.csv: db 
 	psql -d lm10 -h lm10-db -U postgres -f scripts/extract_11b.sql > $@
+
+psql :
+	psql -d lm10 -h lm10-db -U postgres

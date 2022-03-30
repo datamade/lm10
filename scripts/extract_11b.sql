@@ -1,8 +1,9 @@
 COPY (
   SELECT
-    a.file_name,
-    ST_Distance(a.wkb_geometry, b.wkb_geometry),
-    a.page_num,
+    replace(replace(a.file_name, 'textract_responses/', ''), '.json', '.pdf') as file_name,
+    a.page_num + 1 as page_num,
+    RANK () OVER (PARTITION BY a.file_name, a.page_num
+                  ORDER BY ST_Distance(a.wkb_geometry, b.wkb_geometry)) AS item_order,
     b.text
   FROM
     blocks AS a
@@ -13,14 +14,5 @@ COPY (
     AND b.wkb_geometry &< a.wkb_geometry
     AND b.wkb_geometry &> a.wkb_geometry
     AND b.blocktype = 'LINE'
-  GROUP BY
-    a.file_name,
-    a.page_num,
-    b.text,
-    a.wkb_geometry,
-    b.wkb_geometry
-  ORDER BY
-    a.file_name,
-    a.page_num,
-    ST_Distance(a.wkb_geometry, b.wkb_geometry)
+    AND b.text NOT LIKE '%or expenditure%'
 ) TO stdout WITH CSV HEADER;
