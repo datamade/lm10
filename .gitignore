@@ -136,3 +136,5 @@ raw/*.pdf
 raw/*.png
 raw/*/*.png
 images/*
+db
+sample.geojson
